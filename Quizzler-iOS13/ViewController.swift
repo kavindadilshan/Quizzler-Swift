@@ -24,6 +24,7 @@
         override func viewDidLoad() {
             super.viewDidLoad()
             // Do any additional setup after loading the view.
+            updateQuiz()
         }
 
         @IBAction func buttonAction(_ sender: UIButton) {
@@ -35,11 +36,16 @@
             }
             
             //Array.count to use get length
-            if quizes.count<3{
+            if ((quizes.count-1)>questionNumber){
                 questionNumber+=1
             }
+            
+            updateQuiz()
         }
         
+        func updateQuiz () {
+            questionLabel.text = quizes[questionNumber][0]
+        }
         
     }
 
