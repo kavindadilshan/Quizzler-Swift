@@ -14,9 +14,9 @@
         @IBOutlet weak var progressBar: UIImageView!
         
         let quizes = [
-          ["Are you married","True"],
-          ["Are you single?","False"],
-          ["You have boyfriend?","True"]
+            Questions(q:"Are you married",a: "True"),
+            Questions(q: "Are you single?", a: "False"),
+            Questions(q: "You have boyfriend?", a: "True")
         ]
         
         var questionNumber = 0
@@ -29,7 +29,7 @@
 
         @IBAction func buttonAction(_ sender: UIButton) {
            
-            if (quizes[questionNumber][1] == sender.currentTitle) {
+            if (quizes[questionNumber].answer == sender.currentTitle) {
                 print("correct")
             }else{
                 print("incorrect")
@@ -44,7 +44,7 @@
         }
         
         func updateQuiz () {
-            questionLabel.text = quizes[questionNumber][0]
+            questionLabel.text = quizes[questionNumber].questions
         }
         
     }
