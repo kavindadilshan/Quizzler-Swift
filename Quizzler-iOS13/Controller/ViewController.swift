@@ -18,13 +18,7 @@
         
         @IBOutlet weak var falseButton: UIButton!
         
-        let quizes = [
-            Questions(q:"Are you married",a: "True"),
-            Questions(q: "Are you single?", a: "False"),
-            Questions(q: "You have boyfriend?", a: "True")
-        ]
-        
-        var questionNumber = 0
+        var quizBrain = QuizBrain()
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -34,25 +28,27 @@
         }
 
         @IBAction func buttonAction(_ sender: UIButton) {
-           
-            if (quizes[questionNumber].answer == sender.currentTitle) {
+            let userAnswer = sender.currentTitle!
+//            quizBrain.checkAnswer(userAnswer:userAnswer)
+            let userGotItRight = quizBrain.checkAnswer(userAnswer)
+            
+            
+            if (userGotItRight) {
                 sender.backgroundColor = UIColor.green
             }else{
                 sender.backgroundColor = UIColor.red
             }
             
-            progressbar.progress = Float(questionNumber+1) / Float(quizes.count)
-            //Array.count to use get length
-            if ((quizes.count-1)>questionNumber){
-                questionNumber+=1
-            }
+            quizBrain.nextQuestion()
             
             
             Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateQuiz), userInfo: nil, repeats: true)
         }
         
         @objc func updateQuiz () {
-            questionLabel.text = quizes[questionNumber].questions
+            questionLabel.text = quizBrain.getQuestiontext()
+            progressbar.progress = quizBrain.getProgress()
+            
             trueButton.backgroundColor = UIColor.clear
             falseButton.backgroundColor = UIColor.clear
         }
